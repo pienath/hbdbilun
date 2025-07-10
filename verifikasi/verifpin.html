@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>PIN dulu bos</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .input-group {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 15px;
+      padding-right: 40px;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      right: 10px;
+      top: 25px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 14px;
+      color: #007BFF;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Masukkan PIN</h2>
+    <div class="input-group">
+      <input type="password" id="pinInput" placeholder="apa yh pin nya" maxlength="99">
+      <button class="toggle-btn" onclick="togglePin()">tampilkan pin</button>
+    </div>
+    <button onclick="verifikasiPin()">Verifikasi</button>
+    <div id="pesan" class="message"></div>
+  </div>
+
+  <script>
+    const PIN_BENAR = "akuraja"; // PIN yang ditetapkan
+    
+
+    function verifikasiPin() {
+      const input = document.getElementById("pinInput").value;
+      const pesan = document.getElementById("pesan");
+
+      if (input === PIN_BENAR) {
+        pesan.textContent = "PIN benar. tunggu yhh...";
+        pesan.className = "message success";
+        setTimeout(() => {
+          window.location.href = "game/game.html";
+        }, 200); // Delay 1.5 detik sebelum redirect
+      } else {
+        pesan.textContent = "PIN salah. tanya yang buat";
+        pesan.className = "message error";
+      }
+    }
+
+    function togglePin() {
+      const pinInput = document.getElementById("pinInput");
+      const toggleBtn = document.querySelector(".toggle-btn");
+      if (pinInput.type === "password") {
+        pinInput.type = "text";
+        toggleBtn.textContent = "Sembunyikan";
+      } else {
+        pinInput.type = "password";
+        toggleBtn.textContent = "Lihat";
+      }
+    }
+
+    document.getElementById("pinInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        verifikasiPin();
+      }
+    });
+  </script>
+
+</body>
+</html>
